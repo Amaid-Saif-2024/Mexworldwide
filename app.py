@@ -72,5 +72,38 @@ def create_shipment():
     
     return jsonify({'message': 'Shipment created successfully', 'shipment_id': new_shipment.id, 'tracking_number': tracking_number}), 201
 
+# Updating shipment (PATCH)
+@app.route('/update_shipment/<int:shipment_id>', methods=['PATCH'])
+@token_required
+def update_shipment(shipment_id):
+    shipment = Shipment.query.get(shipment_id)
+    
+    if shipment:
+        data = request.get_json()
+        
+        # Update the fields with the data provided in the request
+        shipment.sender_name = data.get('sender_name', shipment.sender_name)
+        shipment.sender_address = data.get('sender_address', shipment.sender_address)
+        shipment.sender_phone = data.get('sender_phone', shipment.sender_phone)
+        shipment.receiver_name = data.get('receiver_name', shipment.receiver_name)
+        shipment.receiver_address = data.get('receiver_address', shipment.receiver_address)
+        shipment.receiver_phone = data.get('receiver_phone', shipment.receiver_phone)
+        shipment.service_type = data.get('service_type', shipment.service_type)
+        shipment.weight = data.get('weight', shipment.weight)
+        shipment.description = data.get('description', shipment.description)
+        shipment.insurance_value = data.get('insurance_value', shipment.insurance_value)
+        shipment.cubic_measurement = data.get('cubic_measurement', shipment.cubic_measurement)
+        shipment.status = data.get('status', shipment.status)
+        shipment.number_of_items = data.get('number_of_items', shipment.number_of_items)
+        shipment.total_value = data.get('total_value', shipment.total_value)
+        shipment.total_gst = data.get('total_gst', shipment.total_gst)
+        shipment.delivery_charges = data.get('delivery_charges', shipment.delivery_charges)
+        
+        db.session.commit()
+        
+        return jsonify({'message': 'Shipment updated successfully'}), 200
+    return jsonify({'message': 'Shipment not found'}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)
