@@ -116,5 +116,87 @@ def delete_shipment(shipment_id):
         return jsonify({'message': 'Shipment deleted successfully'}), 200
     return jsonify({'message': 'Shipment not found'}), 404
 
+# Get shipments with pagination and sorting (GET)
+@app.route('/shipments', methods=['GET'])
+@token_required
+def get_shipments():
+    shipment_id = request.args.get('shipment_id', None)
+    page = request.args.get('page', 1, type=int)  
+    per_page = request.args.get('per_page', 10, type=int)  # Default items per page is 10
+    sort_by = request.args.get('sort_by', 'created_at')  # Default sort by created_at
+    order = request.args.get('order', 'asc')  # Default order is ascending
+
+    # Sorting logic
+    if sort_by not in ['tracking_number', 'status', 'created_at']:
+        return jsonify({'message': 'Invalid sort_by value. Use tracking_number, status, or created_at.'}), 400
+
+    if order == 'desc':
+        sort_column = getattr(Shipment, sort_by).desc()
+    else:
+        sort_column = getattr(Shipment, sort_by).asc()
+
+    if shipment_id:
+        shipment = Shipment.query.get(shipment_id)
+        if shipment:
+            shipment_data = {
+                'shipment_id': shipment.id,
+                'sender_name': shipment.sender_name,
+                'sender_address': shipment.sender_address,
+                'sender_phone': shipment.sender_phone,
+                'receiver_name': shipment.receiver_name,
+                'receiver_address': shipment.receiver_address,
+                'receiver_phone': shipment.receiver_phone,
+                'tracking_number': shipment.tracking_number,
+                'service_type': shipment.service_type,
+                'weight': shipment.weight,
+                'description': shipment.description,
+                'insurance_value': shipment.insurance_value,
+                'cubic_measurement': shipment.cubic_measurement,
+                'status': shipment.status,
+                'number_of_items': shipment.number_of_items,
+                'total_value': shipment.total_value,
+                'total_gst': shipment.total_gst,
+                'delivery_charges': shipment.delivery_charges,
+                'created_at': shipment.created_at,
+                'updated_at': shipment.updated_at
+            }
+            return jsonify(shipment_data), 200
+        return jsonify({'message': 'Shipment not found'}), 404
+
+    # Paginate and return all shipments if no specific id or tracking_number is provided
+    shipments = Shipment.query.order_by(sort_column).paginate(page=page, per_page=per_page, error_out=False)
+    shipment_list = []
+    for shipment in shipments.items:
+        shipment_data = {
+            'shipment_id': shipment.id,
+            'sender_name': shipment.sender_name,
+            'sender_address': shipment.sender_address,
+            'sender_phone': shipment.sender_phone,
+            'receiver_name': shipment.receiver_name,
+            'receiver_address': shipment.receiver_address,
+            'receiver_phone': shipment.receiver_phone,
+            'tracking_number': shipment.tracking_number,
+            'service_type': shipment.service_type,
+            'weight': shipment.weight,
+            'description': shipment.description,
+            'insurance_value': shipment.insurance_value,
+            'cubic_measurement': shipment.cubic_measurement,
+            'status': shipment.status,
+            'number_of_items': shipment.number_of_items,
+            'total_value': shipment.total_value,
+            'total_gst': shipment.total_gst,
+            'delivery_charges': shipment.delivery_charges,
+            'created_at': shipment.created_at,
+            'updated_at': shipment.updated_at
+        }
+        shipment_list.append(shipment_data)
+
+    return jsonify({
+        'shipments': shipment_list,
+        'total_pages': shipments.pages,
+        'current_page': shipments.page,
+        'total_items': shipments.total
+    }), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
