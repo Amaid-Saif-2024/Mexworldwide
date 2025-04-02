@@ -104,6 +104,17 @@ def update_shipment(shipment_id):
         return jsonify({'message': 'Shipment updated successfully'}), 200
     return jsonify({'message': 'Shipment not found'}), 404
 
+# Deleting shipment (DELETE)
+@app.route('/delete_shipment/<int:shipment_id>', methods=['DELETE'])
+@token_required
+def delete_shipment(shipment_id):
+    shipment = Shipment.query.get(shipment_id)
+    
+    if shipment:
+        db.session.delete(shipment)
+        db.session.commit()
+        return jsonify({'message': 'Shipment deleted successfully'}), 200
+    return jsonify({'message': 'Shipment not found'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
