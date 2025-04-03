@@ -198,5 +198,42 @@ def get_shipments():
         'total_items': shipments.total
     }), 200
 
+
+@app.route('/track', methods=['GET'])
+def track_shipment():
+    tracking_number = request.args.get('tracking_number', None)
+    
+    if not tracking_number:
+        return jsonify({'message': 'Tracking number is required.'}), 400
+    print(tracking_number,"tracking_number")
+
+    shipment = Shipment.query.filter_by(tracking_number=tracking_number).first()
+    
+    if shipment:
+        shipment_data = {
+            'shipment_id': shipment.id,
+            'sender_name': shipment.sender_name,
+            'sender_address': shipment.sender_address,
+            'sender_phone': shipment.sender_phone,
+            'receiver_name': shipment.receiver_name,
+            'receiver_address': shipment.receiver_address,
+            'receiver_phone': shipment.receiver_phone,
+            'tracking_number': shipment.tracking_number,
+            'service_type': shipment.service_type,
+            'weight': shipment.weight,
+            'description': shipment.description,
+            'insurance_value': shipment.insurance_value,
+            'cubic_measurement': shipment.cubic_measurement,
+            'status': shipment.status,
+            'number_of_items': shipment.number_of_items,
+            'total_value': shipment.total_value,
+            'total_gst': shipment.total_gst,
+            'delivery_charges': shipment.delivery_charges,
+            'created_at': shipment.created_at,
+            'updated_at': shipment.updated_at
+        }
+        return jsonify(shipment_data), 200
+    return jsonify({'message': 'Shipment not found. Please check the tracking number and try again.'}), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
