@@ -277,5 +277,39 @@ def login_user():
     else:
         return jsonify({"message": "Invalid credentials"}), 401
 
+# Update User (PATCH)
+@app.route('/update_user/<int:user_id>', methods=['PATCH'])
+@token_required
+def update_user(user_id):
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    data = request.get_json()
+    user.username = data.get('username', user.username)
+    user.email = data.get('email', user.email)
+    if 'password' in data:
+        user.set_password(data['password'])
+    
+    db.session.commit()
+    
+    return jsonify({'message': 'User updated successfully'}), 200
+
+# Delete User (DELETE)
+@app.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@token_required
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    db.session.delete(user)
+    db.session.commit()
+    
+    return jsonify({"message": "User deleted successfully"}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
