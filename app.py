@@ -235,5 +235,47 @@ def track_shipment():
         return jsonify(shipment_data), 200
     return jsonify({'message': 'Shipment not found. Please check the tracking number and try again.'}), 404
 
+# User Routes
+@app.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+    
+    # Check if the user already exists
+    if User.query.filter_by(username=username).first():
+        return jsonify({"message": "Username already exists"}), 400
+    if User.query.filter_by(email=email).first():
+        return jsonify({"message": "Email already exists"}), 400
+    
+    new_user = User(username=username, email=email)
+    new_user.set_password(password)
+    
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return jsonify({"message": "User registered successfully", "user_id": new_user.id}), 201
+
+# Login User (POST)
+@app.route('/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    
+    user = User.query.filter_by(username=username).first()
+    
+    if user and user.check_password(password):
+        # Generate JWT token
+        token = jwt.encode({
+            'user_id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+        }, app.config['SECRET_KEY'], algorithm="HS256")
+        
+        return jsonify({'message': 'Login successful', 'token': token}), 200
+    else:
+        return jsonify({"message": "Invalid credentials"}), 401
+
 if __name__ == '__main__':
     app.run(debug=True)
