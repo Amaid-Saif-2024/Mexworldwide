@@ -310,6 +310,49 @@ def delete_user(user_id):
     
     return jsonify({"message": "User deleted successfully"}), 200
 
+# Get a specific user by ID (GET)
+@app.route('/user/<int:user_id>', methods=['GET'])
+@token_required
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    user_data = {
+        'user_id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'role': user.role,
+        'created_at': user.created_at,
+        'updated_at': user.updated_at
+    }
+    
+    return jsonify(user_data), 200
+
+# List all users (GET)
+@app.route('/users', methods=['GET'])
+@token_required
+def get_all_users():
+    users = User.query.all()
+    
+    if not users:
+        return jsonify({"message": "No users found"}), 404
+    
+    users_list = []
+    for user in users:
+        user_data = {
+            'user_id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'role': user.role,
+            'created_at': user.created_at,
+            'updated_at': user.updated_at
+        }
+        users_list.append(user_data)
+    
+    return jsonify({"users": users_list}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)
