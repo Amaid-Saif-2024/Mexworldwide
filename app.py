@@ -354,5 +354,48 @@ def get_all_users():
     return jsonify({"users": users_list}), 200
 
 
+# Route for Index Page
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@app.route('/register')
+def register_page():
+    return render_template('register.html')
+
+@app.route('/view_shipment/<int:shipment_id>', methods=['GET'])
+# @token_required
+def view_shipment(shipment_id):
+    return render_template('view_shipment.html')
+
+@app.route('/update_shipment/<int:shipment_id>', methods=['GET'])
+# @token_required
+def update_shipment_page(shipment_id):
+    return render_template('update_shipment.html')
+
+@app.route('/create_shipment', methods=['GET'])
+def create_shipment_page():
+    return render_template('create_shipment.html')
+
+@app.route('/track_shipment', methods=['GET'])
+def track_shipment_page():
+    return render_template('track_shipment.html')
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    response = render_template('login.html')
+    resp = app.make_response(response)
+    resp.set_cookie('token', '', expires=0) 
+    return resp
+
+
 if __name__ == '__main__':
     app.run(debug=True)
