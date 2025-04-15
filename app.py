@@ -363,6 +363,10 @@ def home():
 def homepage():
     return render_template('homepage.html')
 
+@app.route('/services')
+def services():
+    return render_template('our_services.html')
+
 @app.route('/login')
 def login_page():
     return render_template('login.html')
