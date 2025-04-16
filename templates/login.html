@@ -34,35 +34,7 @@
             <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $('#login-form').submit(function(e) {
-                e.preventDefault();
-
-                const username = $('#username').val();
-                const password = $('#password').val();
-
-                $.ajax({
-                    url: '/login',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        username: username,
-                        password: password
-                    }),
-                    success: function(response) {
-                        // On successful login, storing the token in localStorage
-                        localStorage.setItem('token', response.token);
-                        alert('Login successful!');
-                        window.location.href = '/'; // Redirect to index page
-                    },
-                    error: function(response) {
-                        alert('Invalid credentials, please try again.');
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="static/js/login.js"></script>
+   
 </body>
 </html>

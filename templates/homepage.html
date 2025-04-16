@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Mex Worldwide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <ul>
-            <li><a href="/homepage">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/track_shipment">Track Shipment</a></li>
-            <!-- <li><a href="#contact-us">Contact Us</a></li> -->
-        </ul>
-    </div>
-
-    <header class="header">
-        <div class="header-content">
-            <h1>Welcome to Mex Worldwide</h1>
-            <p>Your go-to place for reliable logistics and shipping solutions.</p>
-            <a href="#contact-us" class="contact-btn">Contact Us</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/homepage" class="logo">MEX <span>Worldwide</span></a>
+            <ul class="nav-links">
+                <li><a href="/homepage">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/track_shipment">Track Shipment</a></li>
+                <li><a href="/services">Our Services</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
+
+  
+   <section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to Mex Worldwide</h1>
+        <p>Your go-to place for reliable logistics and shipping solutions.</p>
+        <a href="#contact-us" class="cta-button">Contact Us</a>
+    </div>
+</section>
+
 
     <section class="values">
         <h2>Our Values</h2>
@@ -44,37 +50,11 @@
         </div>
     </section>
 
-   
-
     <section class="services">
         <h2>Comprehensive and Reliable Logistics Services</h2>
         <p>We offer end-to-end logistics solutions tailored to meet the needs of businesses worldwide. Our services are designed to streamline your supply chain.</p>
     </section>
 
-    <section class="values">
-        <h2>Our Services</h2>
-        <p>Transport and Logistics Around the World</p>
-        <div class="mission-vision">
-            <div class="mission" style="background-color: #0B3964; color: white;">
-                <h3>By Air Transport</h3>
-                <p>At Mex Worldwide, our mission is to simplify logistics and shipping processes for businesses by providing innovative, reliable, and efficient solutions.</p>
-            </div>
-            <div class="vision" style="background-color: #0B3964; color: white;">
-                <h3>By Car Transport</h3>
-                <p>Our vision is to be the leading logistics provider recognized for setting industry standards through innovative solutions, exceptional service, and a customer-focused approach.</p>
-            </div>
-        </div>
-        <div class="mission-vision" >
-            <div class="mission" style="background-color: #0B3964; color: white;">
-                <h3>By Road Transport</h3>
-                <p>At Mex Worldwide, our mission is to simplify logistics and shipping processes for businesses by providing innovative, reliable, and efficient solutions.</p>
-            </div>
-            <div class="vision" style="background-color: #0B3964; color: white;">
-                <h3>By Bus Transport</h3>
-                <p>Our vision is to be the leading logistics provider recognized for setting industry standards through innovative solutions, exceptional service, and a customer-focused approach.</p>
-            </div>
-        </div>
-    </section>
     <section class="choose-us">
         <div class="choose-us-left">
             <img src="https://i.postimg.cc/WbnXfZhS/slider-shape-imgopt8.webp" alt="Why Choose Us">
@@ -100,7 +80,53 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2025 Mex Worldwide. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MEX Worldwide</h3>
+                <p>Providing comprehensive logistics solutions with global reach and local expertise since 2005.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/homepage">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/track_shipment">Track Shipment</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Air Freight</a></li>
+                    <li><a href="#">Sea Freight</a></li>
+                    <li><a href="#">Ground Services</a></li>
+                    <li><a href="#">Warehousing</a></li>
+                    <li><a href="#">Customs Clearance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Logistics Way, New York, NY</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@mexworldwide.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 MEX Worldwide. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
