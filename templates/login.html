@@ -9,13 +9,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="navbar" style="justify-content: center;">
-        <ul>
-            <li><a href="/homepage">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/track_shipment">Track Shipment</a></li>
-        </ul>
-    </div>
+    <nav class="navbar">
+        <div class="nav-container" style="margin: 0px !important;">
+            <a href="/homepage" class="logo">MEX <span>Worldwide</span></a>
+            <ul class="nav-links" style="margin-top: 2%;">
+                <li><a href="/homepage">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/track_shipment">Track Shipment</a></li>
+                <!-- <li><a href="/services">Our Services</a></li> -->
+            </ul>
+        </div>
+    </nav>
 
     <div class="container mt-5">
         <h2 class="text-center">Login</h2>
@@ -34,7 +38,7 @@
             <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
     </div>
-    <script src="static/js/login.js"></script>
+    <script src="/static/js/login.js"></script>
    
 </body>
 </html>

@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/track_shipment">Track Shipment</a></li>
-            <!-- <li><a href="/logout">Logout</a></li> -->
-            <!-- <li><a href="#contact-us">Contact Us</a></li> -->
-        </ul>
-    </div>
+    <nav class="navbar">
+        <div class="nav-container" style="margin: 0px !important;">
+            <a href="/homepage" class="logo">MEX <span>Worldwide</span></a>
+            <ul class="nav-links" style="margin-top: 2%;">
+                <li><a href="/homepage">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/track_shipment">Track Shipment</a></li>
+                <!-- <li><a href="/services">Our Services</a></li> -->
+            </ul>
+        </div>
+    </nav>
+
 
     <div class="container mt-5">
         <h2 class="text-center">Track Shipment</h2>
@@ -68,7 +71,7 @@
             Shipment not found. Please check the tracking number and try again.
         </div>
     </div>
-    <script src="static/js/track_shipment.js"></script>
+    <script src="/static/js/track_shipment.js"></script>
    
 </body>
 </html>
